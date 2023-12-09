@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://faijm23qsq5y"]
+
+[ext_resource type="SpriteFrames" uid="uid://b744275f41i1g" path="res://sprites/unicycle.aseprite" id="1_5pakx"]
+[ext_resource type="Script" path="res://scripts/Unicycle.cs" id="1_ak5wf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ixnki"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hebxh"]
+size = Vector2(22, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewxvd"]
+size = Vector2(18, 15)
+
+[node name="Unicycle" type="CharacterBody2D"]
+scale = Vector2(0.993872, 1.00868)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_ak5wf")
+
+[node name="WheelCollision" type="CollisionShape2D" parent="."]
+position = Vector2(11, -10)
+shape = SubResource("CircleShape2D_ixnki")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(10.0617, -15.8623)
+sprite_frames = ExtResource("1_5pakx")
+speed_scale = 0.0
+
+[node name="SeatCollision" type="CollisionShape2D" parent="."]
+position = Vector2(11, -26)
+shape = SubResource("RectangleShape2D_hebxh")
+
+[node name="PlayerAttachmentPoint" type="Node2D" parent="."]
+position = Vector2(11, -39)
+
+[node name="EquipArea" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="EquipCollision" type="CollisionShape2D" parent="EquipArea"]
+position = Vector2(11, -35)
+shape = SubResource("RectangleShape2D_ewxvd")
+
+[connection signal="body_entered" from="EquipArea" to="." method="OnEquipAreaBodyEntered"]

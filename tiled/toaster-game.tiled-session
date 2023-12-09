@@ -1,0 +1,26 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Kitchen.tsx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "Kitchen.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        }
+    },
+    "last.imagePath": "F:/Private/GameDev/ToasterGame/sprites",
+    "openFiles": [
+        "Kitchen.tsx"
+    ],
+    "project": "toaster-game.tiled-project",
+    "recentFiles": [
+        "Kitchen.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

@@ -1,0 +1,74 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://yjra8ogty6ti"]
+
+[ext_resource type="FontFile" uid="uid://b8ibnhg2nfwbr" path="res://fonts/Silkscreen-Regular.ttf" id="1_b238y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2w420"]
+content_margin_left = 2.0
+content_margin_right = 2.0
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjslf"]
+content_margin_left = 2.0
+content_margin_right = 2.0
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2h0tk"]
+content_margin_left = 2.0
+content_margin_right = 2.0
+bg_color = Color(0.301961, 0.301961, 0.301961, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkhs8"]
+content_margin_left = 2.0
+content_margin_right = 2.0
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1i4gn"]
+content_margin_left = 2.0
+content_margin_right = 2.0
+bg_color = Color(0.266667, 0.266667, 0.266667, 1)
+corner_detail = 5
+
+[resource]
+default_font = ExtResource("1_b238y")
+default_font_size = 24
+/font_sizes/default = 16
+/fonts/default = ExtResource("1_b238y")
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/styles/disabled = SubResource("StyleBoxFlat_2w420")
+Button/styles/focus = SubResource("StyleBoxFlat_sjslf")
+Button/styles/hover = SubResource("StyleBoxFlat_2h0tk")
+Button/styles/normal = SubResource("StyleBoxFlat_jkhs8")
+Button/styles/pressed = SubResource("StyleBoxFlat_1i4gn")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.776471)
+Label/constants/line_spacing = 3
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+RichTextLabel/colors/default_color = Color(0.87451, 0.443137, 0.14902, 1)
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 0.776471)
+RichTextLabel/constants/shadow_offset_x = 1
+RichTextLabel/constants/shadow_offset_y = 1
+RichTextLabel/constants/shadow_outline_size = 1
