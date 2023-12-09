@@ -19,6 +19,7 @@ position = Vector2(64, -120)
 
 [node name="HudUi" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
+process_mode = 3
 process_priority = 1
 layout_mode = 3
 anchors_preset = 15
@@ -31,6 +32,8 @@ script = ExtResource("3_8c55n")
 [node name="PanelDeath" type="Panel" parent="CanvasLayer/HudUi"]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -112,13 +115,13 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="ButtonRestart" type="Button" parent="CanvasLayer/HudUi/PanelDeath/ButtonContainer"]
+[node name="ButtonDeathRestart" type="Button" parent="CanvasLayer/HudUi/PanelDeath/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 text = "try again"
 
-[node name="ButtonBack" type="Button" parent="CanvasLayer/HudUi/PanelDeath/ButtonContainer"]
+[node name="ButtonDeathBack" type="Button" parent="CanvasLayer/HudUi/PanelDeath/ButtonContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -127,6 +130,8 @@ text = "select level"
 [node name="PanelWin" type="Panel" parent="CanvasLayer/HudUi"]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -173,24 +178,8 @@ grow_vertical = 2
 theme = ExtResource("4_b88h8")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center]You died[/center]"
+text = "[center]You win[/center]"
 scroll_active = false
-
-[node name="LabelReason" type="RichTextLabel" parent="CanvasLayer/HudUi/PanelWin"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -256.0
-offset_top = 36.0
-offset_right = 256.0
-offset_bottom = 92.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[center]death reason[/center]"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HudUi/PanelWin"]
 layout_mode = 1
@@ -207,17 +196,103 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="ButtonNext" type="Button" parent="CanvasLayer/HudUi/PanelWin/HBoxContainer"]
+[node name="ButtonWinNext" type="Button" parent="CanvasLayer/HudUi/PanelWin/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-text = "try again"
+text = "next level"
 
-[node name="ButtonBackWin" type="Button" parent="CanvasLayer/HudUi/PanelWin/HBoxContainer"]
+[node name="ButtonWinBack" type="Button" parent="CanvasLayer/HudUi/PanelWin/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 text = "select level"
+
+[node name="PanelPause" type="Panel" parent="CanvasLayer/HudUi"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_b88h8")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HudUi/PanelPause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HudUi/PanelPause"]
+modulate = Color(0.188235, 0.188235, 0.188235, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_16yj0")
+stretch_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HudUi/PanelPause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = -30.0
+offset_right = 176.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_b88h8")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]Paused[/center]"
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HudUi/PanelPause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = 135.5
+offset_right = 186.5
+offset_bottom = 175.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ButtonPauseRestart" type="Button" parent="CanvasLayer/HudUi/PanelPause/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Restart"
+
+[node name="ButtonPauseBack" type="Button" parent="CanvasLayer/HudUi/PanelPause/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "select level"
+
+[node name="ButtonPauseResume" type="Button" parent="CanvasLayer/HudUi/PanelPause/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "resume"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HudUi"]
 layout_mode = 0

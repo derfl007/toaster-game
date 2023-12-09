@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwehoehd1ehs1"]
+[gd_scene load_steps=4 format=3 uid="uid://cwehoehd1ehs1"]
 
 [ext_resource type="Script" path="res://scripts/LevelSelection.cs" id="1_l8nfv"]
-[ext_resource type="PackedScene" uid="uid://dqrhn7pp50ti5" path="res://scenes/levels/level_0.tscn" id="2_5phut"]
 [ext_resource type="Texture2D" uid="uid://dk5s7wkxpnegi" path="res://sprites/toast.aseprite.png" id="2_agoe3"]
 [ext_resource type="Theme" uid="uid://yjra8ogty6ti" path="res://gui/theme.tres" id="3_j2bp3"]
-[ext_resource type="PackedScene" uid="uid://dcvypw72dfvpk" path="res://scenes/levels/level_1.tscn" id="3_kfcw4"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -14,10 +12,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l8nfv")
-_levels = {
-"Level 1": ExtResource("3_kfcw4"),
-"Tutorial": ExtResource("2_5phut")
-}
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
@@ -41,7 +35,8 @@ grow_horizontal = 0
 grow_vertical = 0
 alignment = 1
 
-[node name="ButtonExit" type="Button" parent="HBoxContainer"]
+[node name="ButtonBack" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -82,4 +77,4 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 4
 
-[connection signal="pressed" from="HBoxContainer/ButtonExit" to="." method="OnButtonQuitPressed"]
+[connection signal="pressed" from="HBoxContainer/ButtonBack" to="." method="OnButtonQuitPressed"]

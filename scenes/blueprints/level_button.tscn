@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://2bqd0vkafjv2"]
+
+[ext_resource type="Theme" uid="uid://yjra8ogty6ti" path="res://gui/theme.tres" id="1_key2h"]
+[ext_resource type="Texture2D" uid="uid://cic4j4ek3tnkg" path="res://sprites/trophy.aseprite" id="2_w158o"]
+[ext_resource type="Script" path="res://scripts/LevelButton.cs" id="3_k6euc"]
+[ext_resource type="Texture2D" uid="uid://d3dgyrfgwih8x" path="res://sprites/trophy_gold.aseprite" id="3_qbewa"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_k6euc")
+
+[node name="TrophyContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="TrophyContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+color = Color(0.105882, 0.105882, 0.105882, 1)
+
+[node name="TrophyNormal" type="TextureRect" parent="TrophyContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("1_key2h")
+texture = ExtResource("2_w158o")
+stretch_mode = 3
+
+[node name="TrophyGold" type="TextureRect" parent="TrophyContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme = ExtResource("1_key2h")
+texture = ExtResource("3_qbewa")
+stretch_mode = 3
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Button text"
