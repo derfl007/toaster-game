@@ -1,0 +1,13 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cduh3vpasnri2"]
+
+[ext_resource type="Texture2D" uid="uid://c8hxaq7ovk6ap" path="res://sprites/toast_button.png" id="1_vg4ec"]
+
+[resource]
+content_margin_top = 6.0
+content_margin_bottom = 3.0
+texture = ExtResource("1_vg4ec")
+texture_margin_left = 10.0
+texture_margin_top = 3.0
+texture_margin_right = 11.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(32, 0, 32, 32)

@@ -17,5 +17,3 @@ shape = SubResource("RectangleShape2D_t0e1d")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D/CollisionShape2D"]
 texture = ExtResource("1_3kiro")
-
-[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]

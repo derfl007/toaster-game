@@ -59,8 +59,10 @@ public partial class Player : CharacterBody2D {
 
 		if (!_dead && CanMove) {
 			// Handle Jump.
-			if (Input.IsActionJustPressed("jump") && IsOnFloor())
+			if (Input.IsActionJustPressed("jump") && IsOnFloor()) {
+				GD.Print("jump");
 				velocity.Y = _jumpVelocity;
+			}
 
 			// Get the input direction and handle the movement/deceleration.
 			var direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
@@ -76,7 +78,7 @@ public partial class Player : CharacterBody2D {
 		MoveAndSlide();
 	}
 
-	private void CalculateCameraLimits() {
+	public void CalculateCameraLimits() {
 		GD.Print("Calculating camera limits");
 		var tileMap = GetNode<TileMap>("%Level/TileMap");
 		var mapLimits = tileMap.GetUsedRect();
@@ -85,11 +87,16 @@ public partial class Player : CharacterBody2D {
 		_camera.LimitRight = (mapLimits.Position.X + mapLimits.Size.X) * cellSize.X;
 		_camera.LimitTop = (mapLimits.Position.Y - 2) * cellSize.Y;
 		_camera.LimitBottom = (mapLimits.Position.Y + mapLimits.Size.Y - 2) * cellSize.Y;
+		var screenWidth = GetViewportRect().Size.X;
+		// at resolution 1052 width, zoom should be 3x
+		_camera.Zoom = new Vector2(screenWidth / 350, screenWidth / 350);
 		GD.Print($"Set limits: {_camera.LimitLeft}, {_camera.LimitRight}, {_camera.LimitTop}, {_camera.LimitBottom}");
 	}
 
 	public void IncreaseToasts(int amount) {
-		TakeDamage("You burned to death :(");
+		for (var i = 0; i < amount; i++) {
+			TakeDamage("You burned to death :(");
+		}
 	}
 
 	public void AddButter() {
@@ -109,5 +116,12 @@ public partial class Player : CharacterBody2D {
 		if (_health > 0) return;
 		_dead = true;
 		EmitSignal(SignalName.PlayerDied, $"[center]{reason}[/center]");
+	}
+
+	public void Heal() {
+		if (_health >= MaxHealth) return;
+		_health++;
+		_sprite.Frame = MaxHealth - _health;
+		EmitSignal(SignalName.UpdateHealth, _health);
 	}
 }

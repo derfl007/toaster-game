@@ -20,9 +20,10 @@ public partial class LevelButton : HBoxContainer {
 			switch (value) {
 				case 0:
 					_button.Disabled = true;
+					_locked.Visible = true;
 					break;
 				case 1:
-					_button.Disabled = false;
+					_unlocked.Visible = true;
 					break;
 				case 2:
 					_trophy.Visible = true;
@@ -36,11 +37,15 @@ public partial class LevelButton : HBoxContainer {
 
 	private TextureRect _trophy;
 	private TextureRect _trophyGold;
+	private TextureRect _unlocked;
+	private TextureRect _locked;
 	private Button _button;
 	
 	public override void _Ready() {
 		_trophy = GetNode<TextureRect>("%TrophyNormal");
 		_trophyGold = GetNode<TextureRect>("%TrophyGold");
+		_locked = GetNode<TextureRect>("%Locked");
+		_unlocked = GetNode<TextureRect>("%Unlocked");
 		_button = GetNode<Button>("%Button");
 	}
 

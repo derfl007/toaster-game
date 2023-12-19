@@ -8,6 +8,7 @@ namespace ToasterGame.scripts;
 /// </summary>
 public partial class HudUi : Control {
 	[Export] private float _panelFadeDuration = 1;
+	[Export] private PackedScene _nextLevel;
 
 	private Label _butterLabel;
 	private Label _healthLabel;
@@ -35,7 +36,6 @@ public partial class HudUi : Control {
 		_winPanel = GetNode<Panel>("%PanelWin");
 		_deathPanel = GetNode<Panel>("%PanelDeath");
 		_pausePanel = GetNode<Panel>("%PanelPause");
-		_player = GetNode<Player>("%Player");
 		_buttonDeathRestart = GetNode<Button>("%ButtonDeathRestart");
 		_buttonDeathBack = GetNode<Button>("%ButtonDeathBack");
 		_buttonWinBack = GetNode<Button>("%ButtonWinBack");
@@ -43,6 +43,7 @@ public partial class HudUi : Control {
 		_buttonPauseRestart = GetNode<Button>("%ButtonPauseRestart");
 		_buttonPauseBack = GetNode<Button>("%ButtonPauseBack");
 		_buttonPauseResume = GetNode<Button>("%ButtonPauseResume");
+		_player = GetNode<Player>("%Player");
 		_winArea = GetNode<Area2D>("%WinJam/Area2D");
 		
 		_deathPanel.Modulate = new Color(1, 1, 1, 0);
@@ -56,15 +57,23 @@ public partial class HudUi : Control {
 		_player.PlayerDied += OnPlayerDied;
 		OnUpdateHealth(_player.MaxHealth); // in case _player is not ready yet
 
+		GetTree().Root.SizeChanged += _player.CalculateCameraLimits;
+		
 		_buttonDeathRestart.Pressed += OnButtonRestartPressed;
 		_buttonDeathBack.Pressed += () => OnButtonBackPressed(false);
 		_buttonWinBack.Pressed += () => OnButtonBackPressed(true);
+		_buttonWinNext.Pressed += OnButtonWinNextPressed;
 		_buttonDeathBack.Pressed += () => OnButtonBackPressed(false);
 		_buttonPauseBack.Pressed += () => OnButtonBackPressed(false);
 		_buttonPauseRestart.Pressed += OnButtonRestartPressed;
 		_buttonPauseResume.Pressed += ShowOrHidePausePanel;
 
 		_winArea.BodyEntered += OnPlayerWin;
+	}
+
+	private void OnButtonWinNextPressed() {
+		GetTree().Paused = false;
+		GetTree().ChangeSceneToPacked(_nextLevel);
 	}
 
 	public override void _Process(double delta) {
@@ -79,10 +88,11 @@ public partial class HudUi : Control {
 		GetTree().Paused = true;
 	}
 
-	public override void _UnhandledKeyInput(InputEvent @event) {
+	public override void _UnhandledInput(InputEvent @event) {
 		if (@event.IsActionPressed("pause")) {
 			ShowOrHidePausePanel();
 		}
+		
 	}
 
 	private void ShowOrHidePausePanel() {
@@ -98,6 +108,7 @@ public partial class HudUi : Control {
 		_showWinPanel = true;
 		_winPanel.Visible = true;
 		_buttonWinNext.GrabFocus();
+		SaveGame.SaveLevel(GetTree().CurrentScene.SceneFilePath.Split('/').Last(), _player.Butter);
 	}
 
 	private void OnButtonRestartPressed() {
@@ -106,10 +117,6 @@ public partial class HudUi : Control {
 	}
 
 	private void OnButtonBackPressed(bool won) {
-		if (won) {
-			SaveGame.SaveLevel(GetTree().CurrentScene.SceneFilePath.Split('/').Last(), _player.Butter);
-		}
-
 		GetTree().Paused = false;
 		GetTree().ChangeSceneToFile("res://scenes/level_selection.tscn");
 	}

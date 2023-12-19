@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bicwdwefd06qy"]
+[gd_scene load_steps=11 format=3 uid="uid://bicwdwefd06qy"]
 
 [ext_resource type="PackedScene" uid="uid://dnfeny0n1sjh2" path="res://scenes/blueprints/player.tscn" id="2_i5y1i"]
 [ext_resource type="Script" path="res://scripts/HudUi.cs" id="3_8c55n"]
@@ -7,6 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://dsvqytmmt0k4h" path="res://sprites/heart.aseprite" id="6_bi8j7"]
 [ext_resource type="Texture2D" uid="uid://dtvash2q8rv5c" path="res://sprites/butter.aseprite" id="6_mhcnf"]
 [ext_resource type="Script" path="res://scripts/levels/Level.cs" id="7_pf7uj"]
+[ext_resource type="PackedScene" uid="uid://bbi00ohy1xlnc" path="res://scenes/blueprints/MobileControls.tscn" id="7_uxf3l"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_63dul"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_8lwi6"]
+events = [SubResource("InputEventAction_63dul")]
 
 [node name="Node2D" type="Node2D"]
 texture_filter = 1
@@ -27,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("3_8c55n")
 
 [node name="PanelDeath" type="Panel" parent="CanvasLayer/HudUi"]
@@ -280,6 +288,7 @@ alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+theme = ExtResource("4_b88h8")
 text = "Restart"
 
 [node name="ButtonPauseBack" type="Button" parent="CanvasLayer/HudUi/PanelPause/HBoxContainer"]
@@ -292,6 +301,7 @@ text = "select level"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
+shortcut = SubResource("Shortcut_8lwi6")
 text = "resume"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HudUi"]
@@ -335,6 +345,9 @@ vertical_alignment = 1
 layout_mode = 2
 texture = ExtResource("6_bi8j7")
 expand_mode = 2
+
+[node name="MobileControls" parent="." instance=ExtResource("7_uxf3l")]
+follow_viewport_scale = 10.0
 
 [node name="Level" type="Node2D" parent="."]
 unique_name_in_owner = true

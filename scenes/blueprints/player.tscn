@@ -27,4 +27,5 @@ process_priority = -1
 process_physics_priority = -1
 zoom = Vector2(3, 3)
 process_callback = 0
+limit_smoothed = true
 position_smoothing_enabled = true

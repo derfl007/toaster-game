@@ -1,0 +1,378 @@
+[gd_scene load_steps=11 format=3 uid="uid://deb34f6dn2s82"]
+
+[ext_resource type="Script" path="res://scripts/HudUi.cs" id="1_nf8ol"]
+[ext_resource type="Theme" uid="uid://yjra8ogty6ti" path="res://gui/theme.tres" id="2_yn82y"]
+[ext_resource type="Texture2D" uid="uid://dk5s7wkxpnegi" path="res://sprites/toast.aseprite.png" id="3_p3a2n"]
+[ext_resource type="Texture2D" uid="uid://dtvash2q8rv5c" path="res://sprites/butter.aseprite" id="4_jr118"]
+[ext_resource type="Texture2D" uid="uid://dsvqytmmt0k4h" path="res://sprites/heart.aseprite" id="5_lewae"]
+[ext_resource type="Texture2D" uid="uid://boop3v5e6byt0" path="res://gui/jump.tres" id="6_oxjjj"]
+[ext_resource type="Texture2D" uid="uid://vx734r45vm6f" path="res://gui/move_left.tres" id="7_5s5bq"]
+[ext_resource type="Texture2D" uid="uid://164v8onu1n6o" path="res://gui/move_right.tres" id="8_w75su"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_63dul"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_8lwi6"]
+events = [SubResource("InputEventAction_63dul")]
+
+[node name="HudUi" type="Control"]
+process_mode = 3
+process_priority = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nf8ol")
+
+[node name="PanelDeath" type="Panel" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_yn82y")
+
+[node name="ColorRect" type="ColorRect" parent="PanelDeath"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="PanelDeath"]
+modulate = Color(0.188235, 0.188235, 0.188235, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_p3a2n")
+stretch_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelDeath"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = -30.0
+offset_right = 176.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_yn82y")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]You died[/center]"
+scroll_active = false
+
+[node name="LabelReason" type="RichTextLabel" parent="PanelDeath"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = 36.0
+offset_right = 256.0
+offset_bottom = 92.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[center]death reason[/center]"
+
+[node name="ButtonContainer" type="HBoxContainer" parent="PanelDeath"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = 135.5
+offset_right = 186.5
+offset_bottom = 175.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ButtonDeathRestart" type="Button" parent="PanelDeath/ButtonContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "try again"
+
+[node name="ButtonDeathBack" type="Button" parent="PanelDeath/ButtonContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "select level"
+
+[node name="PanelWin" type="Panel" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_yn82y")
+
+[node name="ColorRect" type="ColorRect" parent="PanelWin"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="PanelWin"]
+modulate = Color(0.188235, 0.188235, 0.188235, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_p3a2n")
+stretch_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelWin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = -30.0
+offset_right = 176.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_yn82y")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]You win[/center]"
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelWin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = 135.5
+offset_right = 186.5
+offset_bottom = 175.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ButtonWinNext" type="Button" parent="PanelWin/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "next level"
+
+[node name="ButtonWinBack" type="Button" parent="PanelWin/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "select level"
+
+[node name="PanelPause" type="Panel" parent="."]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_yn82y")
+
+[node name="ColorRect" type="ColorRect" parent="PanelPause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="PanelPause"]
+modulate = Color(0.188235, 0.188235, 0.188235, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_p3a2n")
+stretch_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelPause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -176.5
+offset_top = -30.0
+offset_right = 176.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_yn82y")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[center]Paused[/center]"
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelPause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.5
+offset_top = 135.5
+offset_right = 186.5
+offset_bottom = 175.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ButtonPauseRestart" type="Button" parent="PanelPause/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme = ExtResource("2_yn82y")
+text = "Restart"
+
+[node name="ButtonPauseBack" type="Button" parent="PanelPause/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "select level"
+
+[node name="ButtonPauseResume" type="Button" parent="PanelPause/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+shortcut = SubResource("Shortcut_8lwi6")
+text = "resume"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_right = 160.0
+offset_bottom = 64.0
+
+[node name="LabelButterCount" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_jr118")
+expand_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -104.0
+offset_bottom = 62.0
+grow_horizontal = 0
+
+[node name="LabelHealth" type="Label" parent="HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_yn82y")
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("5_lewae")
+expand_mode = 2
+
+[node name="TouchControls" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TouchControls"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -408.0
+offset_top = -88.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 1
+
+[node name="Jump" type="TextureButton" parent="TouchControls/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("6_oxjjj")
+stretch_mode = 5
+
+[node name="MoveLeft" type="TextureButton" parent="TouchControls/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("7_5s5bq")
+stretch_mode = 5
+
+[node name="MoveRight" type="TextureButton" parent="TouchControls/HBoxContainer"]
+custom_minimum_size = Vector2(13, 13)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("8_w75su")
+stretch_mode = 5

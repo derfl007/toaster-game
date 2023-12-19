@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://boje73n8ravy0"]
+
+[ext_resource type="Script" path="res://scripts/Milk.cs" id="1_d6vg3"]
+[ext_resource type="Texture2D" uid="uid://ddtsfyxe2pew3" path="res://sprites/milk.aseprite" id="1_w0mb8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnc0f"]
+size = Vector2(32, 32)
+
+[node name="Milk" type="Node2D"]
+script = ExtResource("1_d6vg3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_w0mb8")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_cnc0f")

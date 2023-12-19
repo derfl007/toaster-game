@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbi00ohy1xlnc"]
+
+[ext_resource type="Texture2D" uid="uid://boop3v5e6byt0" path="res://gui/jump.tres" id="1_k5g01"]
+[ext_resource type="Texture2D" uid="uid://t1ymuqpslc5p" path="res://sprites/input_tilemap.png" id="2_8tjba"]
+[ext_resource type="Texture2D" uid="uid://164v8onu1n6o" path="res://gui/move_right.tres" id="3_yp0b0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wsn2"]
+atlas = ExtResource("2_8tjba")
+region = Rect2(528, 192, 16, 16)
+
+[node name="MobileControls" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = -152.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TouchScreenButtonJump" type="TouchScreenButton" parent="Control"]
+position = Vector2(40, 1.52588e-05)
+scale = Vector2(8.15384, 8.15384)
+texture_normal = ExtResource("1_k5g01")
+action = "jump"
+visibility_mode = 1
+
+[node name="TouchScreenButtonMoveLeft" type="TouchScreenButton" parent="Control"]
+position = Vector2(184, 1.52588e-05)
+scale = Vector2(8.15384, 8.15384)
+texture_normal = SubResource("AtlasTexture_6wsn2")
+action = "move_left"
+visibility_mode = 1
+
+[node name="TouchScreenButtonMoveRight" type="TouchScreenButton" parent="Control"]
+position = Vector2(328, 1.52588e-05)
+scale = Vector2(8.15384, 8.15384)
+texture_normal = ExtResource("3_yp0b0")
+action = "move_right"
+visibility_mode = 1
