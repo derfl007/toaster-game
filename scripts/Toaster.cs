@@ -14,6 +14,8 @@ public partial class Toaster : Node {
 	private Area2D _rightEdgeArea;
 	private CharacterBody2D _timingBar;
 	private Marker2D _timingBarSpawnPoint;
+	private AudioStreamPlayer2D _toasterUp;
+	private AudioStreamPlayer2D _toasterDown;
 
 	private bool _isToasting = false;
 	private float _timingBarDirection = -1f;
@@ -40,6 +42,8 @@ public partial class Toaster : Node {
 		_rightEdgeArea = GetNode<Area2D>("%RightEdgeArea");
 		_timingBar = GetNode<CharacterBody2D>("%TimingBar");
 		_timingBarSpawnPoint = GetNode<Marker2D>("%TimingBarSpawnPoint");
+		_toasterUp = GetNode<AudioStreamPlayer2D>("%AudioToasterUp");
+		_toasterDown = GetNode<AudioStreamPlayer2D>("%AudioToasterDown");
 		
 		_goodTimingAreaLeft.BodyEntered += OnGoodAreaEntered;
 		_goodTimingAreaLeft.BodyExited += OnGoodAreaExited;
@@ -86,9 +90,11 @@ public partial class Toaster : Node {
 	}
 
 	private void JumpOut(int healthLost) {
+		_toasterUp.Play();
 		_isToasting = false;
 		_canToast = false;
 		_timingUi.Visible = false;
+		GetParent().GetParent().GetNode<CanvasLayer>("MobileControls").GetNode<TouchScreenButton>("Control/TouchScreenButtonJump").Action = "jump";
 		_timingBar.Velocity = new Vector2(0, 0);
 		_timingBar.GlobalPosition = _timingBarSpawnPoint.GlobalPosition;
 		_inGoodTimingArea = false;
@@ -101,9 +107,11 @@ public partial class Toaster : Node {
 
 	private void OnToasterBodyEntered(Node2D body) {
 		if (body is not Player characterBody2D || !_canToast) return;
+		_toasterDown.Play();
 		_toast = characterBody2D;
 		_isToasting = true;
 		_timingUi.Visible = true;
+		GetParent().GetParent().GetNode<CanvasLayer>("MobileControls").GetNode<TouchScreenButton>("Control/TouchScreenButtonJump").Action = "interact";
 		_sprite.Frame = 1;
 		_toast.CanMove = false;
 	}

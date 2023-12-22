@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpwdn1v88ah23"]
+[gd_scene load_steps=4 format=3 uid="uid://dpwdn1v88ah23"]
 
 [ext_resource type="Script" path="res://scripts/DeathArea.cs" id="1_7mbkq"]
+[ext_resource type="AudioStream" uid="uid://dpy0iud8ulhn6" path="res://audio/sfx/water.ogg" id="2_hr535"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hmhek"]
 size = Vector2(32, 32)
@@ -13,3 +14,7 @@ script = ExtResource("1_7mbkq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(16, -16)
 shape = SubResource("RectangleShape2D_hmhek")
+
+[node name="AudioWater" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_hr535")

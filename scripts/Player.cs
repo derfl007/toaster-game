@@ -8,6 +8,7 @@ public partial class Player : CharacterBody2D {
 	[Export] public float NormalSpeed = 300.0f;
 	[Export] public float NormalJumpVelocity = -400.0f;
 	[Export] public int MaxHealth = 3;
+	[Export] public bool ShouldSetCameraLimits = true;
 
 	[Signal]
 	public delegate void UpdateButterCountEventHandler(int butter);
@@ -32,6 +33,9 @@ public partial class Player : CharacterBody2D {
 	private AnimatedSprite2D _sprite;
 	private HudUi _hudUi;
 	private Camera2D _camera;
+	private AudioStreamPlayer2D _audioCollectButter;
+	private AudioStreamPlayer2D _audioCollectMilk;
+	private AudioStreamPlayer2D _audioJump;
 
 	public override void _Ready() {
 		_health = MaxHealth;
@@ -39,9 +43,19 @@ public partial class Player : CharacterBody2D {
 		_jumpVelocity = NormalJumpVelocity;
 		_sprite = GetNode<AnimatedSprite2D>("DefaultCollision/Sprite");
 		_camera = GetNode<Camera2D>("Camera2D");
-		_hudUi = GetNode<HudUi>("%HudUi");
+		_hudUi = GetParent().GetNode<HudUi>("%HudUi");
+		_audioCollectButter = GetNode<AudioStreamPlayer2D>("%AudioCollectButter");
+		_audioCollectMilk = GetNode<AudioStreamPlayer2D>("%AudioCollectMilk");
+		_audioJump = GetNode<AudioStreamPlayer2D>("%AudioJump");
 		EmitSignal(SignalName.UpdateHealth, _health);
-		CalculateCameraLimits();
+		if (ShouldSetCameraLimits) CalculateCameraLimits();
+	}
+
+	public override void _Input(InputEvent @event) {
+		base._Input(@event);
+		if (@event.IsActionPressed("jump")) {
+			_audioJump.Play();
+		}
 	}
 
 	public override void _PhysicsProcess(double delta) {
@@ -80,16 +94,13 @@ public partial class Player : CharacterBody2D {
 
 	public void CalculateCameraLimits() {
 		GD.Print("Calculating camera limits");
-		var tileMap = GetNode<TileMap>("%Level/TileMap");
+		var tileMap = GetParent().GetNode<TileMap>("%Level/TileMap");
 		var mapLimits = tileMap.GetUsedRect();
 		var cellSize = tileMap.TileSet.TileSize;
 		_camera.LimitLeft = mapLimits.Position.X * cellSize.X;
 		_camera.LimitRight = (mapLimits.Position.X + mapLimits.Size.X) * cellSize.X;
 		_camera.LimitTop = (mapLimits.Position.Y - 2) * cellSize.Y;
 		_camera.LimitBottom = (mapLimits.Position.Y + mapLimits.Size.Y - 2) * cellSize.Y;
-		var screenWidth = GetViewportRect().Size.X;
-		// at resolution 1052 width, zoom should be 3x
-		_camera.Zoom = new Vector2(screenWidth / 350, screenWidth / 350);
 		GD.Print($"Set limits: {_camera.LimitLeft}, {_camera.LimitRight}, {_camera.LimitTop}, {_camera.LimitBottom}");
 	}
 
@@ -100,6 +111,7 @@ public partial class Player : CharacterBody2D {
 	}
 
 	public void AddButter() {
+		_audioCollectButter.Play();
 		Butter++;
 		EmitSignal(SignalName.UpdateButterCount, Butter);
 	}
@@ -119,6 +131,7 @@ public partial class Player : CharacterBody2D {
 	}
 
 	public void Heal() {
+		_audioCollectMilk.Play();
 		if (_health >= MaxHealth) return;
 		_health++;
 		_sprite.Frame = MaxHealth - _health;

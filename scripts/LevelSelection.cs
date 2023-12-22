@@ -19,7 +19,7 @@ public partial class LevelSelection : Control {
 	
 	public override void _Ready() {
 		var save = SaveGame.LoadSave();
-		var buttonGrid = GetNode<GridContainer>("LevelGridContainer");
+		var buttonGrid = GetNode<GridContainer>("%LevelGridContainer");
 		var lastCompleted = -1;
 		var index = 0;
 		var buttonScene = GD.Load<PackedScene>("res://scenes/blueprints/level_button.tscn");
@@ -42,9 +42,12 @@ public partial class LevelSelection : Control {
 			button.LevelScene = level.Value;
 			index++;
 		}
+		
+		var cheatButton = GetNode<TextureButton>("%CheatButton");
+		var specialButton = GetNode<Button>("%SpecialLevelButton");
 
 		if (totalButter >= _levels.Count) {
-			var specialButton = GetNode<Button>("%SpecialLevelButton");
+			cheatButton.Visible = false;
 			specialButton.Visible = true;
 			specialButton.Pressed += () => {
 				GetTree().ChangeSceneToFile("res://scenes/levels/level_special.tscn");
@@ -53,6 +56,14 @@ public partial class LevelSelection : Control {
 		buttonGrid.GetChild<LevelButton>(0).GrabFocus();
 		var backButton = GetNode<Button>("%ButtonBack");
 		backButton.Pressed += OnBackButtonPressed;
+
+		
+		cheatButton.Pressed += () => {
+			specialButton.Visible = true;
+			specialButton.Pressed += () => {
+				GetTree().ChangeSceneToFile("res://scenes/levels/level_special.tscn");
+			};
+		};
 	}
 
 	public override void _Process(double delta) {

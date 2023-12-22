@@ -14,6 +14,9 @@ public partial class Enemy : CharacterBody2D {
 	private Area2D _damageArea;
 	private Area2D _causeDamageArea;
 	private CollisionShape2D _causeDamageAreaCollisionShape;
+	private AudioStreamPlayer2D _audioAttack;
+	private AudioStreamPlayer2D _audioDie;
+	private HudUi _hudUi;
 	private float _deathTimer;
 	private float _deathDuration = 2f;
 	private bool _dead;
@@ -28,6 +31,9 @@ public partial class Enemy : CharacterBody2D {
 		_damageArea.BodyEntered += OnDamageAreaEntered;
 		_causeDamageArea.BodyEntered += OnCauseDamageAreaBodyEntered;
 		_causeDamageAreaCollisionShape = _causeDamageArea.GetChild<CollisionShape2D>(0);
+		_audioAttack = GetNode<AudioStreamPlayer2D>("%AudioAttack");
+		_audioDie = GetNode<AudioStreamPlayer2D>("%AudioDie");
+		_hudUi = GetParent().GetParent().GetNode<HudUi>("%HudUi");
 	}
 
 	public override void _Process(double delta) {
@@ -63,11 +69,18 @@ public partial class Enemy : CharacterBody2D {
 	}
 
 	private void OnDamageAreaEntered(Node2D body) {
+		if (body is not Player player || _dead) return;
+		GD.Print($"Tracking Knifes: {_hudUi.TrackKnifesInsteadOfButter}");
+		if (_hudUi.TrackKnifesInsteadOfButter) {
+			player.AddButter();
+		}
+		_audioDie.Play();
 		_dead = true;
 	}
 
 	private void OnCauseDamageAreaBodyEntered(Node2D body) {
 		if (body is not Player player || _dead) return;
+		_audioAttack.Play();
 		player.TakeDamage(_customDamageText);
 		_dead = true;
 	}

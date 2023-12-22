@@ -1,3 +1,5 @@
+using Godot;
+
 namespace ToasterGame.scripts.levels;
 
 public partial class TutorialLevel : Level {

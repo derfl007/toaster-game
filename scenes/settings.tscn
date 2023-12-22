@@ -1,0 +1,127 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsurdtkotm3gs"]
+
+[ext_resource type="Texture2D" uid="uid://dk5s7wkxpnegi" path="res://sprites/toast.aseprite.png" id="2_66oxq"]
+[ext_resource type="Theme" uid="uid://yjra8ogty6ti" path="res://gui/theme.tres" id="3_6qhur"]
+[ext_resource type="Script" path="res://scripts/Settings.cs" id="3_b7l3m"]
+[ext_resource type="AudioStream" uid="uid://fduy4gu0bhav" path="res://audio/music/Retro Reggae.ogg" id="4_lie0g"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cmt0a"]
+texture = ExtResource("2_66oxq")
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+modulate_color = Color(0.509804, 0.509804, 0.509804, 1)
+
+[node name="Menu" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_6qhur")
+theme_override_styles/panel = SubResource("StyleBoxTexture_cmt0a")
+script = ExtResource("3_b7l3m")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -271.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="ButtonExit" type="Button" parent="MarginContainer/Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_neighbor_left = NodePath("../ButtonSettings")
+focus_previous = NodePath("../ButtonSettings")
+theme = ExtResource("3_6qhur")
+text = "Back"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Control"]
+layout_mode = 1
+offset_right = 295.0
+offset_bottom = 63.0
+theme = ExtResource("3_6qhur")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[shake rate=20.0 level=10 connected=1]Settings[/shake]"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/Control"]
+stream = ExtResource("4_lie0g")
+autoplay = true
+bus = &"Music"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -220.0
+offset_bottom = 244.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Control/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Master"
+
+[node name="MasterSlider" type="HSlider" parent="MarginContainer/Control/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 80.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/Control/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Control/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "SFX"
+
+[node name="SfxSlider" type="HSlider" parent="MarginContainer/Control/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+value = 100.0

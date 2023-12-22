@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://faijm23qsq5y"]
+[gd_scene load_steps=7 format=3 uid="uid://faijm23qsq5y"]
 
 [ext_resource type="SpriteFrames" uid="uid://b744275f41i1g" path="res://sprites/unicycle.aseprite" id="1_5pakx"]
 [ext_resource type="Script" path="res://scripts/Unicycle.cs" id="1_ak5wf"]
+[ext_resource type="AudioStream" uid="uid://ctytmri6bbuj1" path="res://audio/sfx/unicycle.ogg" id="3_4hcoy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ixnki"]
 
@@ -39,5 +40,12 @@ collision_layer = 8
 [node name="EquipCollision" type="CollisionShape2D" parent="EquipArea"]
 position = Vector2(11, -35)
 shape = SubResource("RectangleShape2D_ewxvd")
+
+[node name="AudioDriving" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_4hcoy")
+volume_db = -10.0
+pitch_scale = 2.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="EquipArea" to="." method="OnEquipAreaBodyEntered"]

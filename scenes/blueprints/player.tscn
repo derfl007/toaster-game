@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnfeny0n1sjh2"]
+[gd_scene load_steps=7 format=3 uid="uid://dnfeny0n1sjh2"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_w4q88"]
 [ext_resource type="SpriteFrames" uid="uid://kysyck4o6gq1" path="res://sprites/toast.aseprite" id="2_qaq0h"]
+[ext_resource type="AudioStream" uid="uid://balagwxb6xdf5" path="res://audio/sfx/butter.ogg" id="3_7gfq5"]
+[ext_resource type="AudioStream" uid="uid://qtvvf3h1ekds" path="res://audio/sfx/milk.ogg" id="4_k753j"]
+[ext_resource type="AudioStream" uid="uid://6368hu6xxaps" path="res://audio/sfx/footstep.ogg" id="4_kwyme"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dmy0b"]
 radius = 10.5
@@ -29,3 +32,17 @@ zoom = Vector2(3, 3)
 process_callback = 0
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="AudioCollectButter" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_7gfq5")
+bus = &"SFX"
+
+[node name="AudioCollectMilk" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_k753j")
+bus = &"SFX"
+
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_kwyme")

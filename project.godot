@@ -22,9 +22,17 @@ config/icon="res://sprites/toast.svg"
 
 aseprite_executable_path="C:/Tools/Aseprite/aseprite.exe"
 
+[audio]
+
+buses/default_bus_layout="res://audio/audio_bus_layout.tres"
+
 [autoload]
 
 InputHelper="*res://addons/input_helper/input_helper.gd"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [dotnet]
 

@@ -9,6 +9,7 @@ namespace ToasterGame.scripts;
 public partial class HudUi : Control {
 	[Export] private float _panelFadeDuration = 1;
 	[Export] private PackedScene _nextLevel;
+	[Export] public bool TrackKnifesInsteadOfButter;
 
 	private Label _butterLabel;
 	private Label _healthLabel;
@@ -24,6 +25,9 @@ public partial class HudUi : Control {
 	private Button _buttonPauseBack;
 	private Button _buttonPauseResume;
 	private Area2D _winArea;
+	private AudioStreamPlayer _audioWin;
+	private AudioStreamPlayer _audioLose;
+	private RichTextLabel _knivesText;
 
 	private bool _showDeathPanel;
 	private bool _showWinPanel;
@@ -45,7 +49,9 @@ public partial class HudUi : Control {
 		_buttonPauseResume = GetNode<Button>("%ButtonPauseResume");
 		_player = GetNode<Player>("%Player");
 		_winArea = GetNode<Area2D>("%WinJam/Area2D");
-		
+		_audioWin = GetNode<AudioStreamPlayer>("%AudioWin");
+		_audioLose = GetNode<AudioStreamPlayer>("%AudioLose");
+
 		_deathPanel.Modulate = new Color(1, 1, 1, 0);
 		_deathPanel.Visible = false;
 		_winPanel.Modulate = new Color(1, 1, 1, 0);
@@ -58,7 +64,7 @@ public partial class HudUi : Control {
 		OnUpdateHealth(_player.MaxHealth); // in case _player is not ready yet
 
 		GetTree().Root.SizeChanged += _player.CalculateCameraLimits;
-		
+
 		_buttonDeathRestart.Pressed += OnButtonRestartPressed;
 		_buttonDeathBack.Pressed += () => OnButtonBackPressed(false);
 		_buttonWinBack.Pressed += () => OnButtonBackPressed(true);
@@ -92,7 +98,6 @@ public partial class HudUi : Control {
 		if (@event.IsActionPressed("pause")) {
 			ShowOrHidePausePanel();
 		}
-		
 	}
 
 	private void ShowOrHidePausePanel() {
@@ -105,6 +110,7 @@ public partial class HudUi : Control {
 	}
 
 	private void OnPlayerWin(Node2D body) {
+		_audioWin.Play();
 		_showWinPanel = true;
 		_winPanel.Visible = true;
 		_buttonWinNext.GrabFocus();
@@ -132,9 +138,21 @@ public partial class HudUi : Control {
 	}
 
 	private void OnPlayerDied(string reason) {
+		_audioLose.Play();
 		_showDeathPanel = true;
 		_deathPanel.Visible = true;
 		_deathPanel.GetNode<RichTextLabel>("%LabelReason").Text = reason;
+		if (TrackKnifesInsteadOfButter) {
+			var highScore = SaveGame.LoadSave().TryGetValue("level_special.tscn", out var value) ? (int)value : -1;
+			if (highScore < _player.Butter) {
+				SaveGame.SaveLevel("level_special.tscn", _player.Butter);
+				highScore = _player.Butter;
+			}
+			_knivesText = _deathPanel.GetNode<RichTextLabel>("%LabelKnives");
+			_knivesText.Visible = true;
+			_knivesText.Text = $"[center]You collected {_player.Butter} knives\nHighscore: {highScore}[/center]";
+			
+		}
 		_buttonDeathRestart.GrabFocus();
 	}
 }

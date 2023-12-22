@@ -13,16 +13,25 @@ public static class SaveGame {
 	/// <param name="levelName">The filename of the level (e.g. level_1.tscn)</param>
 	/// <param name="butter">The number of butter collected (either 0 or 1)</param>
 	public static void SaveLevel(string levelName, int butter) {
-		using var oldSaveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Read);
-		var saveDataString = oldSaveGame.GetLine();
-		var saveData = Json.ParseString(saveDataString).As<Dictionary<string, Variant>>();
+		
 		var level = new Dictionary<string, Variant>() {
 			{ levelName, butter }
 		};
-		if (!saveData.TryGetValue(levelName, out var value)) return;
-		if (value.As<int>() >= butter) return; // don't save if the butter count is the same
-		saveData.Merge(level); // only overwrite if the new butter count is higher
-		var jsonString = Json.Stringify(saveData);
+
+		string jsonString;
+		if (FileAccess.FileExists("user://savegame.save")) {
+			using var oldSaveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Read);
+			var saveDataString = oldSaveGame.GetLine();
+			var saveData = Json.ParseString(saveDataString).As<Dictionary<string, Variant>>();
+			var previous = saveData.TryGetValue(levelName, out var value) ? value.As<int>() : -1;
+			if (previous >= butter) return; // don't save if the butter count is the same
+			saveData.Merge(level, butter >= previous); // only overwrite if the new butter count is higher
+			jsonString = Json.Stringify(saveData);
+		}
+		else {
+			jsonString = Json.Stringify(level);
+		}
+		
 		using var saveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Write);
 		saveGame.StoreLine(jsonString);
 	}
@@ -32,7 +41,14 @@ public static class SaveGame {
 	/// </summary>
 	/// <returns></returns>
 	public static Dictionary<string, Variant> LoadSave() {
-		using var saveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Read);
-		return Json.ParseString(saveGame.GetLine()).As<Dictionary<string, Variant>>();
+		if (FileAccess.FileExists("user://savegame.save")) {
+			using var saveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Read);
+			return Json.ParseString(saveGame.GetLine()).As<Dictionary<string, Variant>>();
+		}
+		else {
+			SaveLevel("level_0.tscn", -1);
+			using var saveGame = FileAccess.Open("user://savegame.save", FileAccess.ModeFlags.Read);
+			return Json.ParseString(saveGame.GetLine()).As<Dictionary<string, Variant>>();
+		}
 	}
 }

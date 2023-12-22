@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://dher2iwiydmp8"]
+[gd_scene load_steps=5 format=3 uid="uid://dher2iwiydmp8"]
 
 [ext_resource type="Script" path="res://scripts/InputPrompt.cs" id="1_odayf"]
+[ext_resource type="Texture2D" uid="uid://cr36bnl57ydlk" path="res://gui/input_interact_kbm.tres" id="2_u3sj7"]
+[ext_resource type="Texture2D" uid="uid://t1ymuqpslc5p" path="res://sprites/input_tilemap.png" id="3_y7o83"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yh12c"]
+atlas = ExtResource("3_y7o83")
+region = Rect2(496, 192, 16, 16)
 
 [node name="InputPrompt" type="Control"]
 layout_mode = 3
@@ -18,6 +24,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+texture = ExtResource("2_u3sj7")
 stretch_mode = 5
 
 [node name="PS" type="TextureRect" parent="."]
@@ -39,3 +46,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch_mode = 5
+
+[node name="Touch" type="TouchScreenButton" parent="."]
+unique_name_in_owner = true
+position = Vector2(24, 0)
+scale = Vector2(1.5, 1.5)
+texture_normal = SubResource("AtlasTexture_yh12c")
+visibility_mode = 1

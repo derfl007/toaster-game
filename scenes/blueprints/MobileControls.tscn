@@ -23,7 +23,7 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="TouchScreenButtonJump" type="TouchScreenButton" parent="Control"]
-position = Vector2(40, 1.52588e-05)
+position = Vector2(-648, 0)
 scale = Vector2(8.15384, 8.15384)
 texture_normal = ExtResource("1_k5g01")
 action = "jump"

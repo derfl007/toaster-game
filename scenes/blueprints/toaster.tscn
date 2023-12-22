@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cikpqmj2li8c5"]
+[gd_scene load_steps=20 format=3 uid="uid://cikpqmj2li8c5"]
 
 [ext_resource type="SpriteFrames" uid="uid://d2in5xrslifl8" path="res://sprites/toaster.aseprite" id="1_312p5"]
 [ext_resource type="Script" path="res://scripts/Toaster.cs" id="1_x7gep"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cr36bnl57ydlk" path="res://gui/input_interact_kbm.tres" id="6_lnads"]
 [ext_resource type="Texture2D" uid="uid://c0t8k6l3tplxx" path="res://gui/input_interact_xbox.tres" id="7_hri0c"]
 [ext_resource type="Texture2D" uid="uid://by35dbnn2f7wk" path="res://gui/input_interact_ps.tres" id="8_qkf0c"]
+[ext_resource type="AudioStream" uid="uid://ddi1c3hw5x4j1" path="res://audio/sfx/toasterUp.ogg" id="10_c8l6f"]
+[ext_resource type="AudioStream" uid="uid://bhh4ku6witryu" path="res://audio/sfx/toasterDown.ogg" id="11_2tj0e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ueuxy"]
 size = Vector2(30, 6)
@@ -33,7 +35,7 @@ size = Vector2(16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1yue5"]
 atlas = ExtResource("5_ck480")
-region = Rect2(391, 357, 16, 16)
+region = Rect2(481, 193, 13, 14)
 
 [node name="Toaster" type="Node2D"]
 z_index = 3
@@ -178,7 +180,7 @@ shape = SubResource("RectangleShape2D_qrxey")
 
 [node name="TimingBar" type="CharacterBody2D" parent="CanvasLayer/TimingUi/NinePatchRect"]
 unique_name_in_owner = true
-position = Vector2(16, 24)
+position = Vector2(104, 24)
 collision_layer = 16
 collision_mask = 32
 
@@ -198,20 +200,29 @@ position = Vector2(48, 24)
 
 [node name="InputPrompt" parent="CanvasLayer/TimingUi" instance=ExtResource("5_xhesm")]
 layout_mode = 1
-offset_left = 552.0
-offset_top = 488.0
-offset_right = 552.0
-offset_bottom = 488.0
+offset_left = 504.0
+offset_top = 496.0
+offset_right = 575.576
+offset_bottom = 520.024
 _kbmTexture = ExtResource("6_lnads")
 _xboxTexture = ExtResource("7_hri0c")
 _psTexture = ExtResource("8_qkf0c")
 
 [node name="TouchScreenButton" type="TouchScreenButton" parent="CanvasLayer/TimingUi"]
-visible = false
-position = Vector2(552, 488)
-scale = Vector2(3, 3)
+position = Vector2(544, 488)
+scale = Vector2(4, 4)
 texture_normal = SubResource("AtlasTexture_1yue5")
 action = "interact"
 visibility_mode = 1
+
+[node name="AudioToasterUp" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("10_c8l6f")
+volume_db = -10.0
+
+[node name="AudioToasterDown" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("11_2tj0e")
+volume_db = -10.0
 
 [connection signal="body_entered" from="DetectionArea" to="." method="OnToasterBodyEntered"]

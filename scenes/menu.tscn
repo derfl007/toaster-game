@@ -1,45 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://cj78tusc1ifry"]
+[gd_scene load_steps=6 format=3 uid="uid://cj78tusc1ifry"]
 
 [ext_resource type="Texture2D" uid="uid://dk5s7wkxpnegi" path="res://sprites/toast.aseprite.png" id="1_fx5nh"]
 [ext_resource type="Script" path="res://scripts/Menu.cs" id="1_lbqcg"]
 [ext_resource type="Theme" uid="uid://yjra8ogty6ti" path="res://gui/theme.tres" id="2_kord4"]
+[ext_resource type="AudioStream" uid="uid://fduy4gu0bhav" path="res://audio/music/Retro Reggae.ogg" id="4_c8xfr"]
 
-[node name="Menu" type="Control"]
-layout_mode = 3
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cx1m1"]
+texture = ExtResource("1_fx5nh")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate_color = Color(0.494118, 0.494118, 0.494118, 1)
+
+[node name="Menu" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_kord4")
+theme_override_styles/panel = SubResource("StyleBoxTexture_cx1m1")
 script = ExtResource("1_lbqcg")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(0.505882, 0.505882, 0.505882, 1)
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_fx5nh")
-stretch_mode = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -208.0
-offset_top = -48.0
-offset_right = -8.0
-offset_bottom = -8.0
-grow_horizontal = 0
-grow_vertical = 0
 alignment = 1
 
-[node name="ButtonStart" type="Button" parent="HBoxContainer"]
+[node name="ButtonStart" type="Button" parent="MarginContainer/Control/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -48,7 +49,8 @@ focus_next = NodePath("../ButtonSettings")
 theme = ExtResource("2_kord4")
 text = "Start"
 
-[node name="ButtonSettings" type="Button" parent="HBoxContainer"]
+[node name="ButtonSettings" type="Button" parent="MarginContainer/Control/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -59,7 +61,8 @@ focus_previous = NodePath("../ButtonStart")
 theme = ExtResource("2_kord4")
 text = "Settings"
 
-[node name="ButtonExit" type="Button" parent="HBoxContainer"]
+[node name="ButtonExit" type="Button" parent="MarginContainer/Control/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -68,24 +71,19 @@ focus_previous = NodePath("../ButtonSettings")
 theme = ExtResource("2_kord4")
 text = "Exit"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Control"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -312.0
-offset_top = -48.0
-offset_right = 312.0
-offset_bottom = 48.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 95.0
 grow_horizontal = 2
-grow_vertical = 2
 theme = ExtResource("2_kord4")
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
-text = "[shake rate=20.0 level=10 connected=1]Toaster Game[/shake]"
+text = "[center][shake rate=20.0 level=10 connected=1]Toaster Game[/shake]"
 
-[connection signal="pressed" from="HBoxContainer/ButtonStart" to="." method="OnButtonStartPressed"]
-[connection signal="pressed" from="HBoxContainer/ButtonExit" to="." method="OnButtonQuitPressed"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MarginContainer/Control"]
+stream = ExtResource("4_c8xfr")
+autoplay = true
+bus = &"Music"
